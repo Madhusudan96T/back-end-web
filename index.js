@@ -1,23 +1,16 @@
 const express = require('express');
-const mongoose = require('mongoose');
+require('./db/config.js');
+const userEntity=require('./db/UserEntity.js');
 
 const app = express();
+app.use(express.json());
 
-const connectDB = async () => {
-  try {
-    await mongoose.connect('mongodb://127.0.0.1:27017/Advocate');
+app.post("/query",async(req,resp)=>{
+  let user=new userEntity(req.body);
+  let result=await user.save();
+  resp.send(req.body);
+})
 
-    const productSchema = new mongoose.Schema({});
-
-    const Query = mongoose.model('queries', productSchema);
-    const data = await Query.find();
-    console.log(data);
-  } catch (error) {
-    console.error('Error connecting to the database:', error);
-  }
-};
-
-connectDB();
 
 app.listen(2000, () => {
   console.log('Server is running on port 2000');
