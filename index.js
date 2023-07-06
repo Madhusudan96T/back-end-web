@@ -13,6 +13,15 @@ app.post("/query",async(req,resp)=>{
   resp.send(req.body);
 })
 
+app.post("/fetchTicket",async(req,resp)=>{
+  const { ticket } = req.body;
+  let user = await userEntity.findOne({ ticket });
+  if(user){
+    resp.send(user)
+  } else{
+    resp.send({result: 'no user found'})
+  }
+})
 
 app.listen(2000, () => {
   console.log('Server is running on port 2000');
