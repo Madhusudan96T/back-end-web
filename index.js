@@ -15,9 +15,9 @@ app.post("/query",async(req,resp)=>{
 
 app.post("/fetchTicket",async(req,resp)=>{
   const { ticket } = req.body;
-  let user = await userEntity.findOne({ ticket });
-  if(user){
-    resp.send(user)
+  let users = await userEntity.find({ ticket });
+  if(users.length>0){
+    resp.send(users[0]);
   } else{
     resp.send({result: 'no user found'})
   }
