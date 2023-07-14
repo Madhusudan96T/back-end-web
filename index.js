@@ -2,6 +2,7 @@ const express = require('express');
 const cors= require('cors');
 require('./db/config.js');
 const userEntity=require('./db/UserEntity.js');
+const lawyers=require('./db/lawyerEntity');
 
 const app = express();
 app.use(express.json());
@@ -22,6 +23,20 @@ app.post("/fetchTicket",async(req,resp)=>{
     resp.send({result: 'no user found'})
   }
 })
+
+
+app.post("/addlawyer",async(req,resp)=>{
+  let lawyer=new lawyers(req.body);
+  let result=await lawyer.save();
+  resp.send(result);
+
+})
+
+
+
+
+
+
 
 app.listen(2000, () => {
   console.log('Server is running on port 2000');
