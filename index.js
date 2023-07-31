@@ -32,6 +32,16 @@ app.post("/addlawyer",async(req,resp)=>{
 
 })
 
+app.get("/lawyers_api",async(req,resp)=>{
+  let allLawyers=await lawyers.find();
+  if(allLawyers.length>0){
+    resp.send(allLawyers);
+  }else{
+    resp.send({result:"No lawyers found"});
+  }
+
+})
+
 
 
 
