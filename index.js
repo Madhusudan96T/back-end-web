@@ -32,6 +32,11 @@ app.post("/addlawyer",async(req,resp)=>{
 
 })
 
+app.delete("/ticket/:id",async(req,resp)=>{
+  const result = await userEntity.deleteOne({name:req.params.id})
+  resp.send(result)
+});
+
 app.get("/lawyers_api",async(req,resp)=>{
   let allLawyers=await lawyers.find();
   if(allLawyers.length>0){
@@ -43,6 +48,15 @@ app.get("/lawyers_api",async(req,resp)=>{
 })
 
 
+app.get("/lawyer/:id",async(req,resp)=>{
+  let result=await lawyers.findOne({name:req.params.id});
+  if(result){
+    resp.send(result);
+  }else{
+    resp.send({result:"No lawyers found"});
+  }
+
+})
 
 
 
