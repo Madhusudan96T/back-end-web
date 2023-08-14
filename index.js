@@ -59,7 +59,14 @@ app.get("/lawyer/:id",async(req,resp)=>{
 })
 
 
-
+app.put("/update_lawyer/:id", async(req,resp)=>{
+  let result= await lawyers.updateOne(
+    {name:req.params.id},
+    {
+      $set:req.body
+    })
+    resp.send(result)
+})
 
 
 app.listen(2000, () => {
